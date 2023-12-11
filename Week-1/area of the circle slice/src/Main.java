@@ -14,6 +14,6 @@ public class Main {
 
         area = (p * (r * r) * a) / 360;
         System.out.print("Area is: " + area);
-        
+
     }
 }

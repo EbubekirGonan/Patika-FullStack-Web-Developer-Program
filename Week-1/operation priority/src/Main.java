@@ -1,20 +1,28 @@
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
-        int a, b, c;
 
+        //declare variables
+        int a, b, c, result;
+
+        //call scanner class
         Scanner input = new Scanner(System.in);
 
-        System.out.print("Please enter a value: ");
+        //demand for first value
+        System.out.print("Please enter first value: ");
         a = input.nextInt();
 
-        System.out.print("Please enter a value: ");
+        //demand for second value
+        System.out.print("Please enter second value: ");
         b = input.nextInt();
 
-        System.out.print("Please enter a value: ");
+        //demand for third value
+        System.out.print("Please enter third value: ");
         c = input.nextInt();
 
-        System.out.print(a + " + " + b + " * " + c + " - " + b + " = " + (a + b * c - b));
+        //find result with operation priority
+        result = a + b * c - b;
+        System.out.print(a + " + " + b + " * " + c + " - " + b + " = " + result);
 
 
     }

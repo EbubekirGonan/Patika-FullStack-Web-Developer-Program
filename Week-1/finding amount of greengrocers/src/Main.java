@@ -1,6 +1,7 @@
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
+        //declare variables
         double pearAmount, appleAmount, tomatoAmount, bananaAmount, eggplantAmount,
                 pearPerKg, applePerKg, tomatoPerKg, bananaPerKg, eggplantPerKg,
                 totalAmount;
@@ -10,8 +11,10 @@ public class Main {
         bananaPerKg = 0.95;
         eggplantPerKg = 5.00;
 
+        //call scanner class
         Scanner input = new Scanner(System.in);
 
+        //demand for values
         System.out.print("Please enter how many kilos of pear: ");
         pearAmount = input.nextDouble() * pearPerKg;
 
@@ -27,8 +30,10 @@ public class Main {
         System.out.print("Please enter how many kilos of eggplant: ");
         eggplantAmount = input.nextDouble() * eggplantPerKg;
 
+        //calculate total amount
         totalAmount = pearAmount + appleAmount + tomatoAmount + bananaAmount + eggplantAmount;
 
+        //print the bill
         System.out.println("---------------------------");
         System.out.println("Pear Amount: " + pearAmount);
         System.out.println("Apple Amount: " + appleAmount);

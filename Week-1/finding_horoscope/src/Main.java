@@ -2,18 +2,22 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
+        //declare variables
         int month, day;
         boolean isError = false;
         String horscp;
 
+        //call scanner class
         Scanner input = new Scanner(System.in);
 
+        //demand for values
         System.out.print("In which month were you born?");
         month = input.nextInt();
 
         System.out.print("In which day were you born?");
         day = input.nextInt();
 
+        //if else structure for finding horoscopes
         if (month >= 1 && month <= 12) {
             if (month == 1) {
                 if (day <= 31 && day >= 1) {

@@ -1,7 +1,7 @@
 import javax.security.sasl.SaslClient;
 import java.util.Scanner;
 public class Main {
-    
+
     //Description method
     static int expo(int b,int n){
         int result=1;

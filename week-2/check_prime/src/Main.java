@@ -2,15 +2,13 @@ import java.util.Scanner;
 public class Main {
 
     //description method
-    static boolean isPrime (int num){
-        if(num<=1){
-            return false;
+    static boolean isPrime (int num, int divisor){
+        if(divisor ==1){
+            return true;
         }
-        for (int i=2; i<=num/2; i++){
-            if(num%i == 0){
-                return false;
-            }
-        }return true;
+        if(num % divisor == 0){
+            return false;
+        }return isPrime(num, divisor-1);
     }
 
 
@@ -21,7 +19,7 @@ public class Main {
         //get number
         int num = inp.nextInt();
 
-        if (isPrime(num))
+        if (isPrime(num, num -1))
             System.out.print(num + " is a prime number");
         else
             System.out.print(num + " is not a prime number");

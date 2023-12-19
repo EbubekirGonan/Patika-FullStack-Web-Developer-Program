@@ -2,12 +2,11 @@ import java.util.Scanner;
 public class Main {
 
     //Description method
-    static int expo(int b,int n){
-        int result=1;
-        for(int i=1; i<=n; i++){
-            result *= b;
+    static int expo(int b,int n) {
+        if (n == 0) {
+            return 1;
         }
-        return result;
+        return b * expo(b, n - 1);
     }
     //main method
     public static void main(String[] args) {

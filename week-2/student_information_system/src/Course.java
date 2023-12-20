@@ -8,6 +8,7 @@ public class Course {
     int perform;
     double gradnote;
 
+    //Course sınıfında parametreli constructure course metodu
     Course(String name, String code, String prefix){
         this.name = name;
         this.code = code;

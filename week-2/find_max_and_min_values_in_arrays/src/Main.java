@@ -4,7 +4,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
 
-        
+
         int number;
         Scanner inp = new Scanner(System.in);
         System.out.print("Please enter a value: ");
@@ -30,6 +30,16 @@ public class Main {
         System.out.println("Dizinin en küçük sayısı: " + arr[arr.length -1]);
         System.out.println("Girdiğiniz " + number + " sayısından küçük, en büyük sayı: " + min);
         System.out.println("Girdiğiniz " + number + " sayısından büyük, en küçük sayı: " + max);
+
+
+        static void dongu(int n){
+            System.out.println(n + " ");
+            if (n <= 0){
+                return;
+            }
+            dongu(n-5);
+            System.out.println(n + " ");
+        }
 
     }
 }

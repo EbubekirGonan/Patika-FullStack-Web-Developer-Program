@@ -10,6 +10,7 @@ public class Employee {
     double raise;
     double  total;
 
+
     
     //employee sınıfından yeni bir nesne üretmek için parametreli kurucu method oluşturuldu.
     Employee (String name, double salary, int workHours, int hireYear){
@@ -39,30 +40,31 @@ public class Employee {
             this.raise = this.salary * 0.05;
         } else if (2021 - this.hireYear < 20) {
             this.raise = this.salary * 0.10;
-        } else if (2021 - this.hireYear > 20){
+        } else if (2021 - this.hireYear >= 20){
             this.raise = this.salary * 0.15;
         }
     }
 
 
     //çalışanlara ait bilgilerin yzdırılması için gerekli methodlar
-    //toPrint methodunun içine çağrıldı.
+    //toString methodunun içine çağrıldı.
 
-    void toPrint(){
+    public String toString(){
         tax();
         bonus();
         raiseSalary();
         this.total = (this.salary - this.tax + this.bonus) + this.raise;
-        System.out.println("Adı: " + this.name);
-        System.out.println("Maaşı: " + this.salary);
-        System.out.println("Çalışma Saaati: " + this.workHours);
-        System.out.println("Başlangıç Yılı: " + this.hireYear);
-        System.out.println("Vergi: " + this.tax);
-        System.out.println("Bonus: " + this.bonus);
-        System.out.println("Vergi ve Bonuslarla birlikte maaş: " + (this.salary - this.tax + this.bonus));
-        System.out.println("Maaş Artışı: " + this.raise);
-        System.out.println("Toplam Maaş: " + this.total);
-        System.out.println("==============");
+        String result = "Adı: " + this.name + "\n" +
+                "Maaşı: " + this.salary + "\n" +
+                "Çalışma Saaati: " + this.workHours + "\n" +
+                "Başlangıç Yılı: " + this.hireYear + "\n" +
+                "Vergi: " + this.tax + "\n" +
+                "Bonus: " + this.bonus + "\n" +
+                "Vergi ve Bonuslarla birlikte maaş: " + ((this.salary - tax) + bonus) + "\n" +
+                "Maaş Artışı: " + this.raise + "\n" +
+                "Toplam Maaş: " + this.total + "\n" +
+                "==============" ;
+        return result;
     }
 
 }

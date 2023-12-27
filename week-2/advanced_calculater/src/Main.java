@@ -20,7 +20,7 @@ public class Main {
         return result;
     }
 
-    static double div(int a, int b) {
+    static double div(int a, int b) {1
         int result = a / b;
         System.out.println("Ratio is: " + result);
         return result;

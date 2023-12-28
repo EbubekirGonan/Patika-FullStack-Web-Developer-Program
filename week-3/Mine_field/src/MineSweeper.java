@@ -11,153 +11,108 @@ public class MineSweeper {
 
         setDimensions();
         String[][] map = createEmptyMap();
-        String[][] playerMap = createEmptyMap();
         mineAssign(map);
+
+        String[][] playerMap = createEmptyMap();
         printMatris(playerMap);
-
-
         System.out.println();
 
+        int numOfSafeCells = (height * width) - numOfMine;
 
-        int safe = (height * width) - numOfMine;
+        boolean isGameOn = true;
 
-
-        while (safe > 0) {
+        while (isGameOn) {
             int x, y;
-            int count = 0;
 
-            System.out.print("Satır sayısı: ");
+            System.out.print("Hedef x kordinati: ");
             x = inp.nextInt();
-            System.out.print("Sütun sayısı: ");
+            System.out.print("Hedef y kordinati: ");
             y = inp.nextInt();
 
-
-            if (x >= 0 && x < height && y >= 0 && y < width) {
-                if (!playerMap[x][y].equals("- ") && !playerMap[x][y].equals("* ")) {
-                    System.out.println("Bu koordinat daha önce seçildi, başka bir koordinat girin");
-                    continue;
-                }
-                if (map[x][y].equals("* ")) {
-                    System.out.println("Patladınız. Tekrar deneyin.");
-                    for (int i = 0; i < map.length; i++) {
-                        for (int j = 0; j < map[i].length; j++) {
-                            if (map[i][j].equals("* ")) {
-                                playerMap[i][j] = map[i][j];
-                            }
-                        }
-                    }
-                    printMatris(playerMap);
-                    break;
-                } else if (x == 0 && y == 0) {
-                    safe--;
-                    for (int i = x; i <= x + 1; i++) {
-                        for (int j = y; j <= y + 1; j++) {
-                            if (map[i][j].equals("* ")) {
-                                count++;
-                            }
-                        }
-                    }
-                } else if (x > 0 && y == 0 && x != (width - 1)) {
-                    safe--;
-                    for (int i = x - 1; i <= (x + 1); i++) {
-                        for (int j = y; j <= y + 1; j++) {
-                            if (map[i][j].equals("* ")) {
-                                count++;
-                            }
-                        }
-                    }
-                } else if (x == (height - 1) && y == 0) {
-                    safe--;
-                    for (int i = x - 1; i <= x; i++) {
-                        for (int j = y; j <= y + 1; j++) {
-                            if (map[i][j].equals("* ")) {
-                                count++;
-                            }
-                        }
-                    }
-                } else if (x == (height - 1) && y > 0 && y != (width - 1)) {
-                    safe--;
-                    for (int i = x - 1; i <= x; i++) {
-                        for (int j = y - 1; j <= y + 1; j++) {
-                            if (map[i][j].equals("* ")) {
-                                count++;
-                            }
-                        }
-                    }
-                } else if (x == (height - 1) && y == (width - 1)) {
-                    safe--;
-                    for (int i = x - 1; i <= x; i++) {
-                        for (int j = y - 1; j <= y; j++) {
-                            if (map[i][j].equals("* ")) {
-                                count++;
-                            }
-                        }
-                    }
-                } else if (x > 0 && x != (height - 1) && y == (width - 1)) {
-                    safe--;
-                    for (int i = x - 1; i <= x + 1; i++) {
-                        for (int j = y - 1; j <= y; j++) {
-                            if (map[i][j].equals("* ")) {
-                                count++;
-                            }
-                        }
-                    }
-                } else if (x == 0 && y == (width - 1)) {
-                    safe--;
-                    for (int i = x; i <= x + 1; i++) {
-                        for (int j = y - 1; j <= y; j++) {
-                            if (map[i][j].equals("* ")) {
-                                count++;
-                            }
-                        }
-                    }
-                } else if (x == 0 && y > 0 && y != (width - 1)) {
-                    safe--;
-                    for (int i = x; i <= x + 1; i++) {
-                        for (int j = y - 1; j <= y + 1; j++) {
-                            if (map[i][j].equals("* ")) {
-                                count++;
-                            }
-                        }
-                    }
-                } else {
-                    safe--;
-                    for (int i = x - 1; i <= x + 1; i++) {
-                        for (int j = y - 1; j <= y + 1; j++) {
-                            if (map[i][j].equals("* ")) {
-                                count++;
-                            }
-                        }
-                    }
-                }
-            } else {
+            if (!isInsideMap(x, y)) {
                 System.out.println("Tablo dışına çıktınız. Lütfen geçerli koordinat giriniz: ");
                 continue;
             }
+            if (!playerMap[x][y].equals("- ") && !playerMap[x][y].equals("* ")) {
+                System.out.println("Bu koordinat daha önce seçildi, başka bir koordinat girin");
+                continue;
+            }
 
-            String mineNum = Integer.toString(count);
-            playerMap[x][y] = mineNum + " ";
+            if (map[x][y].equals("* ")) {
+                System.out.println("Patladınız. Tekrar deneyin.");
 
-            printMatris(playerMap);
+                // set mines to player map in order to show end result to player
+                for (int i = 0; i < map.length; i++) {
+                    for (int j = 0; j < map[i].length; j++) {
+                        if (map[i][j].equals("* ")) {
+                            playerMap[i][j] = map[i][j];
+                        }
+                    }
+                }
+                printMatris(playerMap);
 
-            if (safe == 0) {
+                isGameOn = false;
+                break;
+            }
+            numOfSafeCells--;
+
+            int numOfNeighborMines = getNumberOfNeighborMines(x, y, map);
+
+            playerMap[x][y] = Integer.toString(numOfNeighborMines) + " ";
+
+            if (numOfSafeCells == 0) {
                 System.out.println("Tebrikler kazandınız.");
                 for (int i = 0; i < playerMap.length; i++) {
                     for (int j = 0; j < playerMap[i].length; j++) {
                         if (playerMap[i][j].equals("- ")) {
                             playerMap[i][j] = "* ";
-
                         }
                     }
                 }
-                printMatris(playerMap);
+                isGameOn = false;
             }
-
+            printMatris(playerMap);
         }
     }
 
+    int getNumberOfNeighborMines(int x, int y, String[][] map) {
+        int numOfNeighborMines = 0;
 
-    static void printMatris(String[][] matris) {
+        int[][] coordinatesToVisit = {
+                {x, y + 1},
+                {x + 1, y + 1},
+                {x + 1, y},
+                {x + 1, y - 1},
+                {x, y - 1},
+                {x - 1, y - 1},
+                {x - 1, y},
+                {x - 1, y + 1},
+        };
+
+        for (int i = 0; i < coordinatesToVisit.length; i++) {
+            int targetX = coordinatesToVisit[i][0];
+            int targetY = coordinatesToVisit[i][1];
+            if (isInsideMap(targetX, targetY)) {
+                if (map[targetX][targetY].equals("* ")) {
+                    numOfNeighborMines++;
+                }
+            }
+        }
+        return numOfNeighborMines;
+    }
+
+    boolean isInsideMap(int x, int y) {
+        if (x < 0 || y < 0) {
+            return false;
+        }
+        if (x > height - 1 || y > width - 1) {
+            return false;
+        }
+        return true;
+    }
+
+
+    void printMatris(String[][] matris) {
         for (int i = 0; i < matris.length; i++) {
             for (int j = 0; j < matris[i].length; j++) {
                 System.out.print(matris[i][j] + " ");
@@ -196,21 +151,15 @@ public class MineSweeper {
 
 
     public String[][] mineAssign(String[][] map) {
-        for (int i = 0; i < numOfMine; i++) {
+        int remainingMineNumber = numOfMine;
+        while (remainingMineNumber > 0) {
             int a = (int) (Math.random() * height);
             int b = (int) (Math.random() * width);
             if (!map[a][b].equals("* ")) {
                 map[a][b] = "* ";
-            } else {
-                i--;
+                remainingMineNumber--;
             }
         }
         return map;
     }
-
-    void getTarget(int targetRow, int targetCol) {
-
-    }
-
-
 }

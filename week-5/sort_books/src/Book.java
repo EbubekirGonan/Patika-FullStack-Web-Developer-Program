@@ -1,10 +1,11 @@
 public class Book implements Comparable<Book> {
-
+    //değişkenler tanımlandı
     private String name;
     private int numOfPages;
     private String authorName;
     private String publishDate;
 
+    //constructor tanımlandı
     public Book(String name, Integer numOfPages, String authorName, String publishDate) {
         this.name = name;
         this.numOfPages = numOfPages;
@@ -12,6 +13,7 @@ public class Book implements Comparable<Book> {
         this.publishDate = publishDate;
     }
 
+    //getter ve setter methodlar tanımlandı
     public String getName() {
         return name;
     }
@@ -43,6 +45,8 @@ public class Book implements Comparable<Book> {
     public void setPublishDate(String publishDate) {
         this.publishDate = publishDate;
     }
+
+    //isme göre sıralama için compare to methodu override edildi.
     @Override
     public int compareTo(Book name) {
         return this.name.compareTo(name.getName());

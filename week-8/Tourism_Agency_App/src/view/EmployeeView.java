@@ -20,7 +20,15 @@ public class EmployeeView extends Layout{
     private JTable tbl_season;
     private JButton btn_add_hotel;
     private JTable tbl_room;
-    private JButton button1;
+    private JTextField fld_src_hotel_name;
+    private JTextField fld_src_city;
+    private JTextField fld_src_strt_date;
+    private JTextField fld_src_fnsh_date;
+    private JTextField fld_src_adult_num;
+    private JTextField fld_src_child_num;
+    private JButton btn_save_room;
+    private JButton btn_src_clear;
+    private JButton btn_src_room;
     private DefaultTableModel tmdl_hotel = new DefaultTableModel();
     private DefaultTableModel tmdl_room = new DefaultTableModel();
     private HotelManager hotelManager;

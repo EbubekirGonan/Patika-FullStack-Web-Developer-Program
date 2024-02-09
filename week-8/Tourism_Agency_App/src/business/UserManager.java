@@ -4,6 +4,8 @@ import core.Helper;
 import dao.UserDao;
 import entity.User;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserManager {
@@ -34,14 +36,18 @@ public class UserManager {
         }
         return userRowList;
     }
+
+    public ArrayList<User> findUserByRole (User.UserRole role){
+        return this.userDao.findUserByRole(role);
+    }
+
+
+
     public ArrayList<User> findAll(){
         return this.userDao.findAll();
     }
 
     public boolean save(User user){
-        if(user.getId() != 0){
-            Helper.showMsg("error");
-        }
         return this.userDao.save(user);
     }
 

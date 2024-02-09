@@ -1,6 +1,7 @@
 package dao;
 
 import core.Db;
+import entity.Pension;
 import entity.Room;
 
 import java.sql.Connection;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class RoomDao {
-    private final Connection con;
+    public final Connection con;
 
     public RoomDao() {
         this.con = Db.getInstance();
@@ -53,7 +54,6 @@ public class RoomDao {
                 "tv, minibar, game_console," +
                 "safe_case, projector) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-
         try {
             PreparedStatement pr = initRoomPreparedStatement(query, room);
             return pr.executeUpdate() != -1;
@@ -78,12 +78,23 @@ public class RoomDao {
         }
         return true;
     }
+    public boolean stockUpdate (Room room) {
+        String query = "UPDATE public.room SET stock = ? WHERE room_id = ?";
+        try {
+            PreparedStatement pr = this.con.prepareStatement(query);
+            pr.setInt(1, room.getStock());
+            pr.setInt(2, room.getId());
+            return pr.executeUpdate() != -1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private PreparedStatement initRoomPreparedStatement(String query, Room room) throws SQLException {
         PreparedStatement pr = this.con.prepareStatement(query);
         pr.setInt(1, room.getHotelId());
-        pr.setInt(2, room.getPensionId());
-        pr.setString(3, String.valueOf(room.getType()));
+        pr.setString(2, String.valueOf(room.getPensionType().ordinal()));
+        pr.setString(3, String.valueOf(room.getType().ordinal()));
         pr.setInt(4, room.getStock());
         pr.setInt(5, room.getAdultPrice());
         pr.setInt(6, room.getChildPrice());
@@ -102,7 +113,7 @@ public class RoomDao {
         Room obj = new Room();
         obj.setId(rs.getInt("room_id"));
         obj.setHotelId(rs.getInt("room_hotel_id"));
-        obj.setPensionId(rs.getInt("room_pension"));
+        obj.setPensionType(Pension.Type.values()[rs.getInt("room_pension")]);
         obj.setType(Room.Type.values()[rs.getInt("room_type")]);
         obj.setStock(rs.getInt("stock"));
         obj.setAdultPrice(rs.getInt("adult_price"));

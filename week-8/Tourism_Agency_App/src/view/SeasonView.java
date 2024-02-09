@@ -33,6 +33,7 @@ public class SeasonView extends Layout{
                 result = this.seasonManager.save(this.season);
                 if(result){
                     Helper.showMsg("done");
+                    dispose();
                 }else {
                     Helper.showMsg("error");
                 }

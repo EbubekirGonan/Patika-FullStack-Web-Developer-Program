@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 public class Db {
         private Connection connection = null;
         private static Db instance = null;
+        //Değerlendirme formu 6
         private final String DB_URL = "jdbc:postgresql://localhost/TourismAgencyApp";
         private final String DB_USER = "postgres";
         private final String DB_PASSWORD = "postgres";

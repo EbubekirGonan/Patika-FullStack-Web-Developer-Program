@@ -1,6 +1,7 @@
 package entity;
 
 public class User {
+    //Değerlendirme formu 1
     private int id;
     private String username;
     private String password;

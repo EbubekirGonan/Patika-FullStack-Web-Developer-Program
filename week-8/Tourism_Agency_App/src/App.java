@@ -11,10 +11,10 @@ import java.sql.SQLException;
 public class App {
     public static void main(String[] args) {
 
-        //Connection db = Db.getInstance();
+        //Where it all begins
         Helper.setTheme();
-        //LoginView loginView = new LoginView();
-        //AdminView adminView = new AdminView();
-        EmployeeView employeeView = new EmployeeView();
+        LoginView loginView = new LoginView();
+
+
     }
 }

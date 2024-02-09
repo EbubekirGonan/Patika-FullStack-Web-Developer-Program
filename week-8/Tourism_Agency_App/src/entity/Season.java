@@ -1,5 +1,7 @@
 package entity;
 
+import core.ComboItem;
+
 public class Season {
     private int id;
     private int hotelId;
@@ -44,5 +46,9 @@ public class Season {
 
     public void setFnshDate(String fnshDate) {
         this.fnshDate = fnshDate;
+    }
+
+    public ComboItem getComboItem () {
+        return new ComboItem(this.getId(), this.getStrtDate() + "-"  +this.getFnshDate());
     }
 }

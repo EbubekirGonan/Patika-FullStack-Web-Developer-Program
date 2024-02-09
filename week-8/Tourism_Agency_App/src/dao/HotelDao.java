@@ -16,6 +16,7 @@ public class HotelDao {
     public HotelDao() {
         this.con = Db.getInstance();
     }
+
     public Hotel getById (int id){
         Hotel obj = null;
         String query = "SELECT * FROM public.hotel WHERE hotel_id = ?";
@@ -45,10 +46,13 @@ public class HotelDao {
         }
         return hotelList;
     }
+
     public boolean save(Hotel hotel){
         String query = "INSERT INTO public.hotel " +
-                "(hotel_name, hotel_address, hotel_email, hotel_phone, hotel_star) " +
-                "VALUES (?,?,?,?,?)";
+                "(hotel_name, hotel_address, hotel_email, hotel_phone, hotel_star," +
+                "free_parking, free_wifi, pool, fitness_center," +
+                "concierge, spa, room_service) " +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement pr = this.con.prepareStatement(query);
             pr.setString(1, hotel.getName());
@@ -56,6 +60,14 @@ public class HotelDao {
             pr.setString(3, hotel.getEmail());
             pr.setString(4, hotel.getPhone());
             pr.setString(5, hotel.getStar());
+            pr.setBoolean(6, hotel.hasFreeParking());
+            pr.setBoolean(7, hotel.hasFreeWifi());
+            pr.setBoolean(8, hotel.hasPool());
+            pr.setBoolean(9, hotel.hasFitnessCenter());
+            pr.setBoolean(10, hotel.hasConcierge());
+            pr.setBoolean(11, hotel.hasSpa());
+            pr.setBoolean(12, hotel.hasRoomService());
+
             return pr.executeUpdate() != -1;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,7 +80,14 @@ public class HotelDao {
                 "hotel_address = ?, " +
                 "hotel_email = ?," +
                 "hotel_phone = ?," +
-                "hotel_star = ? " +
+                "hotel_star = ?," +
+                "free_parking = ?," +
+                "free_wifi = ?," +
+                "pool = ?," +
+                "fitness_center = ?," +
+                "concierge = ?," +
+                "spa = ?," +
+                "room_service = ?" +
                 " WHERE hotel_id = ?";
         try {
             PreparedStatement pr = this.con.prepareStatement(query);
@@ -78,6 +97,13 @@ public class HotelDao {
             pr.setString(4, hotel.getPhone());
             pr.setString(5, hotel.getStar());
             pr.setInt(6, hotel.getId());
+            pr.setBoolean(7, hotel.hasFreeParking());
+            pr.setBoolean(8, hotel.hasFreeWifi());
+            pr.setBoolean(9, hotel.hasPool());
+            pr.setBoolean(10, hotel.hasFitnessCenter());
+            pr.setBoolean(11, hotel.hasConcierge());
+            pr.setBoolean(12, hotel.hasSpa());
+            pr.setBoolean(13, hotel.hasRoomService());
             return pr.executeUpdate() != -1;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,6 +130,13 @@ public class HotelDao {
         obj.setEmail(rs.getString("hotel_email"));
         obj.setPhone(rs.getString("hotel_phone"));
         obj.setStar(rs.getString("hotel_star"));
+        obj.setHasFreeParking(rs.getBoolean("free_parking"));
+        obj.setHasFreeWifi(rs.getBoolean("free_wifi"));
+        obj.setHasPool(rs.getBoolean("pool"));
+        obj.setHasFitnessCenter(rs.getBoolean("fitness_center"));
+        obj.setHasConcierge(rs.getBoolean("concierge"));
+        obj.setHasSpa(rs.getBoolean("spa"));
+        obj.setHasRoomService(rs.getBoolean("room_service"));
         return obj;
     }
 

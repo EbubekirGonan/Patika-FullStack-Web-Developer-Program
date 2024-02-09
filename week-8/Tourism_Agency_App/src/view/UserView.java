@@ -48,6 +48,7 @@ public class UserView extends Layout{
                 } else {
                     Helper.showMsg("error");
                 }
+                dispose();
             }
         });
 

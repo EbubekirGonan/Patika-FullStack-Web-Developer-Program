@@ -6,7 +6,7 @@ import entity.Hotel;
 
 import javax.swing.*;
 
-public class HotelView extends Layout{
+public class HotelView extends Layout {
     private JPanel container;
     private JTextField fld_hotel_name;
     private JTextField fld_hotel_address;
@@ -26,7 +26,7 @@ public class HotelView extends Layout{
 
     public HotelView() {
         this.add(container);
-        this.guiInitialise(500,500);
+        this.guiInitialise(500, 500);
         this.hotel = new Hotel();
         this.hotelManager = new HotelManager();
 
@@ -35,20 +35,20 @@ public class HotelView extends Layout{
                 Helper.showMsg("fill");
             } else {
                 boolean result;
-                    hotel.setName(fld_hotel_name.getText());
-                    hotel.setAddres(fld_hotel_address.getText());
-                    hotel.setEmail(fld_hotel_email.getText());
-                    hotel.setPhone(fld_hotel_phone.getText());
-                    hotel.setStar((String) cmb_hotel_star.getSelectedItem());
-                    result = hotelManager.save(this.hotel);
-                    boolean hasFreeWifi =  freeWifiRadioButton.isSelected();
-                    boolean hasFreeParking =  freeParkingRadioButton.isSelected();
-                    boolean hasSwimmingPool =  swimmingPoolRadioButton.isSelected();
-                    boolean hasFitnessCenter =  fitnessCenterRadioButton.isSelected();
-                    boolean hasConcierge=  conciergeRadioButton.isSelected();
-                    boolean hasSpa =  spaRadioButton.isSelected();
-                    boolean hasRoomService =  roomServiceRadioButton.isSelected();
-                    dispose();
+                hotel.setName(fld_hotel_name.getText());
+                hotel.setAddres(fld_hotel_address.getText());
+                hotel.setEmail(fld_hotel_email.getText());
+                hotel.setPhone(fld_hotel_phone.getText());
+                hotel.setStar((String) cmb_hotel_star.getSelectedItem());
+                hotel.setHasFreeWifi(freeWifiRadioButton.isSelected());
+                hotel.setHasFreeParking(freeParkingRadioButton.isSelected());
+                hotel.setHasPool(swimmingPoolRadioButton.isSelected());
+                hotel.setHasFitnessCenter(fitnessCenterRadioButton.isSelected());
+                hotel.setHasConcierge(conciergeRadioButton.isSelected());
+                hotel.setHasSpa(spaRadioButton.isSelected());
+                hotel.setHasRoomService(roomServiceRadioButton.isSelected());
+                result = hotelManager.save(this.hotel);
+                dispose();
                 if (result) {
                     Helper.showMsg("done");
                 } else {
@@ -56,7 +56,6 @@ public class HotelView extends Layout{
                 }
             }
         });
-
 
 
     }

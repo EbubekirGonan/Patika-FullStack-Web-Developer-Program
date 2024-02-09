@@ -7,10 +7,28 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class UserDao {
-    private final Connection con;
+    public final Connection con;
 
     public UserDao() {
         this.con = Db.getInstance();
+    }
+
+    //Değerlendirme formu 1
+    public ArrayList<User> findUserByRole (User.UserRole role){
+        ArrayList<User> filteredUserList = new ArrayList<>();
+        //int roleOrdinal = role.ordinal();
+        String query = "SELECT * FROM public.user WHERE user_role = ?";
+        try {
+            PreparedStatement pr = this.con.prepareStatement(query);
+            pr.setString(1, String.valueOf(role.ordinal()));
+            ResultSet rs = pr.executeQuery();
+            while(rs.next()){
+                filteredUserList.add(this.match(rs));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return filteredUserList;
     }
 
 
@@ -60,6 +78,10 @@ public class UserDao {
             System.out.println(e.getMessage());
         }return obj;
     }
+
+
+
+
 
     public boolean save(User user){
         String query = "INSERT INTO public.user (user_name, user_password, user_role) VALUES (?,?,?)";

@@ -24,7 +24,6 @@ public class ComboItem {
         this.key = key;
         this.value = value;
     }
-
     public String toString(){
         return this.value;
     }

@@ -1,14 +1,53 @@
+#########################################################
 
+screenshot of the app: https://1drv.ms/u/s!AuF3tGwSKDUIk0DTRGF3PO71L9sj?e=qnwm4f
 
--Kullanıcı yönetimi filtreleme hariç tamamlandı:
-    +kullanıcı ekleme, çıkarma, listeleme ve güncelleme admin ekranından yapılabiliyor.
+Tourism Agency Application is designed using Swing UI in Java programming language.
+A user-friendly design suitable for desktop use is presented.
+Within the application:
+-Adding, listing, updating and deleting users can be done with the admin login.
+Additionally, filtering can be done by user role.
+-With the Employee login, you can add hotels, list them, and add the season and 
+hostel type associated with these hotels.
+Additionally, hotel rooms can be added and filtered.
 
--Çalışan girişi yapıldığında otel ekleme, listeleme yapılabiliyor.
--Otele ait dönemler ve pansiyon tipleri eklenebiliyor ve görüntülenebiliyor.
--Oda tablosu oluşturuldu. Henüz ekleme pop-upları ve filtreleme işlemleri eklenemedi.
--Rezervasyonlar kısmına hiç başlanamadı.
+-Employee user can manage reservations.
+When reservations are added to available rooms, the price is created and 
+1 is subtracted from the room stock.
 
--Puanlama yapmak için çok detaylı incelemenize gerek yok. Projenin belki 60'ı bitmiş olabilir. 
-Henüz çok eksiği var. İsterleri karşılayabilecek durumu yok.
-Dolayısıyla revize süresi içerisinde isterlerin tamamı karşılanıp gönderilecektir.
-Teşekkürler, kolaylıklar :)
+The application was created in the Java programming language, 
+considering SOLID principles, layered architecture and object-oriented programming approaches.
+
+At first entry;
+For admin login:
+ID: "admin" Password: "1234"
+For Employee entry:
+ID: "employee" Password: "1234"
+
+#########################################################
+
+Uygulamanın ekran görüntüsü için: https://1drv.ms/u/s!AuF3tGwSKDUIk0DTRGF3PO71L9sj?e=qnwm4f
+
+Turizm Acente Uygulaması, java programlama dilinde swing ui kullanılarak tasarlanmıştır.
+Masaüstü kullanıma uygun olarak kullanıcı dostu bir tasarım sunulmuştur.
+Uygulama içinde:
+-Admin girişiyle kullanıcı ekleme, listeleme, güncelleme ve silme işlemleri gerçekleştirilir.
+Ayrıca kullanıcı rolüne göre filtreleme yapılabilir.
+-Employee girişiyle otel ekleme, listeleme ve bu otellerle ilişkili sezon ve 
+pansiyon tipi ekleme işlemleri gerçekleştirilir.
+Ayrıca otellere ait oda ekleme, filtreleme yapılabilir.
+
+-Employee kullanıcısı rezervasyon yönetimi yapabilir.
+Uygun odalara rezervasyon eklendiğinde fiyat oluşturulur ve oda stoğundan 1 eksiltilir.
+
+Uygulama Java programlama dilinde SOLID prensipleri, katmanlı mimari, 
+nesne yönelimli programlama yaklaşımları düşünülerek oluşturulmuştur.
+
+İlk girişte;
+Admin girişi için:
+ID: "admin" Password: "1234"
+Employee girişi için:
+ID: "employee" Password: "1234"
+
+//Değerlendirme formu 2
+#########################################################

@@ -1,5 +1,7 @@
 package entity;
 
+import core.ComboItem;
+
 public class Pension {
     private int pensionId;
     private  int pensionHotelId;
@@ -39,5 +41,8 @@ public class Pension {
 
     public void setType(Type type) {
         this.type = type;
+    }
+    public ComboItem getComboItem () {
+        return new ComboItem(this.type.ordinal(), getType().toString());
     }
 }

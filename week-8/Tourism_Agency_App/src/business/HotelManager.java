@@ -29,6 +29,13 @@ public class HotelManager {
             rowObject[i++] = hotel.getEmail();
             rowObject[i++] = hotel.getPhone();
             rowObject[i++] = hotel.getStar();
+            rowObject[i++] = hotel.hasFreeParking();
+            rowObject[i++] = hotel.hasFreeWifi();
+            rowObject[i++] = hotel.hasPool();
+            rowObject[i++] = hotel.hasFitnessCenter();
+            rowObject[i++] = hotel.hasConcierge();
+            rowObject[i++] = hotel.hasSpa();
+            rowObject[i++] = hotel.hasRoomService();
 
             hotelRowList.add(rowObject);
         }

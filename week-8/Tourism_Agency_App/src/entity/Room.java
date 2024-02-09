@@ -3,7 +3,7 @@ package entity;
 public class Room {
     private int id;
     private int hotelId;
-    private int pensionId;
+    private Pension.Type pensionType;
     private int seasonId;
     private Room.Type type;
     private int stock;
@@ -21,10 +21,10 @@ public class Room {
     public Room() {
     }
 
-    public Room(int id, int hotelId, int pensionId, int seasonId, Type type, int stock, int adultPrice, int childPrice, int bedCount, int area, boolean hasTV, boolean hasMiniBar, boolean hasGameConsole, boolean hasSafeCase, boolean hasProjector) {
+    public Room(int id, int hotelId, Pension.Type pensionType, int seasonId, Type type, int stock, int adultPrice, int childPrice, int bedCount, int area, boolean hasTV, boolean hasMiniBar, boolean hasGameConsole, boolean hasSafeCase, boolean hasProjector) {
         this.id = id;
         this.hotelId = hotelId;
-        this.pensionId = pensionId;
+        this.pensionType = pensionType;
         this.seasonId = seasonId;
         this.type = type;
         this.stock = stock;
@@ -62,12 +62,12 @@ public class Room {
         this.hotelId = hotelId;
     }
 
-    public int getPensionId() {
-        return pensionId;
+    public Pension.Type getPensionType() {
+        return pensionType;
     }
 
-    public void setPensionId(int pensionId) {
-        this.pensionId = pensionId;
+    public void setPensionType(Pension.Type pensionType) {
+        this.pensionType = pensionType;
     }
 
     public int getSeasonId() {

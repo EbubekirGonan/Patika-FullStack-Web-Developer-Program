@@ -21,7 +21,7 @@ public class SeasonDao {
 
     public ArrayList<Season> findSeasonByHotelID(int hotelID){
         ArrayList<Season> seasonList = new ArrayList<>();
-        String sql = "SELECT * FROM public.hotel_season WHERE hotel_id = ? ORDER BY season_id ASC";
+        String sql = "SELECT * FROM public.hotel_season WHERE season_hotel_id = ? ORDER BY season_id ASC";
         try {
             PreparedStatement pr = this.con.prepareStatement(sql);
             pr.setInt(1, hotelID);
@@ -36,7 +36,7 @@ public class SeasonDao {
     }
 
     public boolean save(Season season){
-        String query = "INSERT INTO public.hotel_season (hotel_id, season_strt_date, season_fnsh_date) VALUES (?,?::date,?::date)";
+        String query = "INSERT INTO public.hotel_season (season_hotel_id, season_strt_date, season_fnsh_date) VALUES (?,?::date,?::date)";
         try {
             PreparedStatement pr = this.con.prepareStatement(query);
             pr.setInt(1, season.getHotelId());
@@ -52,7 +52,7 @@ public class SeasonDao {
     public Season match(ResultSet rs) throws SQLException {
         Season obj = new Season();
         obj.setId(rs.getInt("season_id"));
-        obj.setHotelId(rs.getInt("hotel_id"));
+        obj.setHotelId(rs.getInt("season_hotel_id"));
         obj.setStrtDate(rs.getString("season_strt_date"));
         obj.setFnshDate(rs.getString("season_fnsh_date"));
         return obj;

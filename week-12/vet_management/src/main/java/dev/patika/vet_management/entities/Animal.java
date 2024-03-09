@@ -42,7 +42,7 @@ public class Animal extends BaseEntity {
     @JsonIgnore
     private Customer owner;
 
-    @OneToMany(mappedBy = "animal", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "animal", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JsonIgnore //To avoid going into an infinite loop, json ignore
     private List<Vaccine> vaccineList;
 

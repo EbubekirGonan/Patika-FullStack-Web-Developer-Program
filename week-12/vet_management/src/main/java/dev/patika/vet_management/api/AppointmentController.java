@@ -28,15 +28,10 @@ import java.time.LocalDateTime;
 @RequestMapping("/v1/appointments") //endpoint
 public class AppointmentController {
     private final IAppointmentService appointmentService;
-    private final IDoctorService doctorService;
-    private final IAnimalService animalService;
-    private final IModelMapperService modelMapper;
 
-    public AppointmentController(IAppointmentService appointmentService, IDoctorService doctorService, IAnimalService animalService, IModelMapperService modelMapper) {
+
+    public AppointmentController(IAppointmentService appointmentService) {
         this.appointmentService = appointmentService;
-        this.doctorService = doctorService;
-        this.animalService = animalService;
-        this.modelMapper = modelMapper;
     }
 
     //CRUD
@@ -44,41 +39,24 @@ public class AppointmentController {
     //for save
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public ResultWithData<AppointmentResponse> save(@Valid @RequestBody AppointmentSaveRequest appointmentSaveRequest) {
-        Appointment appointment = this.modelMapper.forRequest().map(appointmentSaveRequest, Appointment.class);
-
-        Doctor doctor = this.doctorService.get(appointmentSaveRequest.getDoctorId());
-        appointment.setDoctor(doctor);
-
-        Animal animal = this.animalService.get(appointmentSaveRequest.getAnimalId());
-        appointment.setAnimal(animal);
-
-        this.appointmentService.save(appointment);
-        return ResultHelper.success(this.modelMapper.forResponse().map(appointment, AppointmentResponse.class));
+    public ResultWithData<AppointmentResponse> save(
+            @Valid @RequestBody AppointmentSaveRequest appointmentSaveRequest) {
+        return ResultHelper.success(this.appointmentService.save(appointmentSaveRequest));
     }
 
     //for get by id
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResultWithData<AppointmentResponse> get(@PathVariable("id") int id) {
-        Appointment appointment = this.appointmentService.get(id);
-        return ResultHelper.success(this.modelMapper.forResponse().map(appointment, AppointmentResponse.class));
+        return ResultHelper.success(this.appointmentService.get(id));
     }
 
     //for update
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
-    public ResultWithData<AppointmentResponse> update(@Valid @RequestBody AppointmentUpdateRequest appointmentUpdateRequest) {
-        Appointment appointment = this.modelMapper.forRequest().map(appointmentUpdateRequest, Appointment.class);
-
-        Doctor doctor = this.doctorService.get(appointmentUpdateRequest.getDoctorId());
-        appointment.setDoctor(doctor);
-
-        Animal animal = this.animalService.get(appointmentUpdateRequest.getAnimalId());
-        appointment.setAnimal(animal);
-
-        this.appointmentService.update(appointment);
-        return ResultHelper.success(this.modelMapper.forResponse().map(appointment, AppointmentResponse.class));
+    public ResultWithData<AppointmentResponse> update(
+            @Valid @RequestBody AppointmentUpdateRequest appointmentUpdateRequest) {
+        return ResultHelper.success(this.appointmentService.update(appointmentUpdateRequest));
     }
 
     //for delete by id
@@ -96,17 +74,14 @@ public class AppointmentController {
             @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize
     ) {
-        Page<Appointment> appointmentDatePage = this.appointmentService.cursor(page, pageSize);
-        Page<AppointmentResponse> appointmentDateResponses = appointmentDatePage.map(
-                appointmentDate -> this.modelMapper.forResponse().map(appointmentDate, AppointmentResponse.class));
-        return ResultHelper.cursor(appointmentDateResponses);
+        return ResultHelper.cursor(this.appointmentService.cursor(page, pageSize));
     }
 
     //for find by animal id and date between
     //start date and end date can be omitted. it's not necessary
     @GetMapping("/findByAnimalId")
     @ResponseStatus(HttpStatus.OK)
-    public ResultWithData<CursorResponse<AppointmentResponse>> existByAnimalIdAndAppointmentDateBetween(
+    public ResultWithData<CursorResponse<AppointmentResponse>> findByAnimalIdAndAppointmentDateBetween(
             @RequestParam(name = "animalId") int animalId,
             @RequestParam(name = "startDate", required = false, defaultValue = "1970-01-01") LocalDate startDate,
             @RequestParam(name = "endDate", required = false, defaultValue = "2100-01-01") LocalDate endDate,
@@ -116,9 +91,7 @@ public class AppointmentController {
         Pageable pageable = PageRequest.of(page, pageSize);
         LocalDateTime startDateTime = startDate.atStartOfDay();
         LocalDateTime endDateTime = endDate.atStartOfDay();
-        Page<Appointment> filteredAppointmentsByAnimalId = this.appointmentService.findByAnimalIdAndAppointmentDateTimeBetween(animalId, startDateTime, endDateTime, pageable).get();
-        Page<AppointmentResponse> appointmentDateResponses = filteredAppointmentsByAnimalId.map(appointmentDate -> this.modelMapper.forResponse().map(appointmentDate, AppointmentResponse.class));
-        return ResultHelper.cursor(appointmentDateResponses);
+        return ResultHelper.cursor(this.appointmentService.findByAnimalIdAndAppointmentDateTimeBetween(animalId, startDateTime, endDateTime, pageable));
     }
 
     //for find by doctor id and date between
@@ -135,8 +108,6 @@ public class AppointmentController {
         Pageable pageable = PageRequest.of(page, pageSize);
         LocalDateTime startDateTime = startDate.atStartOfDay();
         LocalDateTime endDateTime = endDate.atStartOfDay();
-        Page<Appointment> filteredAppointmentsByDoctorId = this.appointmentService.findByDoctorIdAndAppointmentDateTimeBetween(doctorId, startDateTime, endDateTime, pageable).get();
-        Page<AppointmentResponse> appointmentDateResponses = filteredAppointmentsByDoctorId.map(appointmentDate -> this.modelMapper.forResponse().map(appointmentDate, AppointmentResponse.class));
-        return ResultHelper.cursor(appointmentDateResponses);
+        return ResultHelper.cursor(this.appointmentService.findByDoctorIdAndAppointmentDateTimeBetween(doctorId, startDateTime, endDateTime, pageable));
     }
 }

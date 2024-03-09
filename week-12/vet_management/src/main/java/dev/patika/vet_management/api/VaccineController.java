@@ -26,13 +26,10 @@ import java.time.LocalDateTime;
 @RequestMapping("/v1/vaccines") //endpoint
 public class VaccineController {
     private final IVaccineService vaccineService;
-    private final IAnimalService animalService;
-    private final IModelMapperService modelMapper;
 
-    public VaccineController(IVaccineService vaccineService, IAnimalService animalService, IModelMapperService modelMapper) {
+
+    public VaccineController(IVaccineService vaccineService) {
         this.vaccineService = vaccineService;
-        this.animalService = animalService;
-        this.modelMapper = modelMapper;
     }
 
     //CRUD
@@ -41,22 +38,14 @@ public class VaccineController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultWithData<VaccineResponse> save(@Valid @RequestBody VaccineSaveRequest vaccineSaveRequest) {
-        Vaccine vaccine = this.modelMapper.forRequest().map(vaccineSaveRequest, Vaccine.class);
-
-        Animal animal = this.animalService.get(vaccineSaveRequest.getAnimalId());
-        vaccine.setAnimal(animal);
-
-        this.vaccineService.save(vaccine);
-
-        return ResultHelper.success(this.modelMapper.forResponse().map(vaccine, VaccineResponse.class));
+        return ResultHelper.success(this.vaccineService.save(vaccineSaveRequest));
     }
 
     // for get by id
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResultWithData<VaccineResponse> get(@PathVariable("id") int id) {
-        Vaccine vaccine = this.vaccineService.get(id);
-        return ResultHelper.success(this.modelMapper.forResponse().map(vaccine, VaccineResponse.class));
+        return ResultHelper.success(this.vaccineService.get(id));
 
     }
 
@@ -64,14 +53,7 @@ public class VaccineController {
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
     public ResultWithData<VaccineResponse> update(@Valid @RequestBody VaccineUpdateRequest vaccineUpdateRequest) {
-        Vaccine vaccine = this.modelMapper.forRequest().map(vaccineUpdateRequest, Vaccine.class);
-
-        Animal animal = this.animalService.get(vaccineUpdateRequest.getAnimalId());
-        vaccine.setAnimal(animal);
-
-        this.vaccineService.update(vaccine);
-
-        return ResultHelper.success(this.modelMapper.forResponse().map(vaccine, VaccineResponse.class));
+        return ResultHelper.success(this.vaccineService.update(vaccineUpdateRequest));
     }
 
     //for delete by id
@@ -89,9 +71,7 @@ public class VaccineController {
             @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize
     ) {
-        Page<Vaccine> vaccinePage = this.vaccineService.cursor(page, pageSize);
-        Page<VaccineResponse> vaccineResponses = vaccinePage.map(vaccine -> this.modelMapper.forResponse().map(vaccine, VaccineResponse.class));
-        return ResultHelper.cursor(vaccineResponses);
+        return ResultHelper.cursor(this.vaccineService.cursor(page, pageSize));
     }
 
     //find vaccines by date between
@@ -104,9 +84,7 @@ public class VaccineController {
             @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize
     ) {
         Pageable pageable = PageRequest.of(page, pageSize);
-        Page<Vaccine> filteredVaccinesByProtectionStartDate = this.vaccineService.findByProtectionStartDateBetween(startDate, endDate, pageable).get();
-        Page<VaccineResponse> vaccineResponses = filteredVaccinesByProtectionStartDate.map(vaccine -> this.modelMapper.forResponse().map(vaccine, VaccineResponse.class));
-        return ResultHelper.cursor(vaccineResponses);
+        return ResultHelper.cursor(this.vaccineService.findByProtectionStartDateBetween(startDate, endDate, pageable));
     }
 
     //find vaccines by animal id and optional date between
@@ -120,9 +98,7 @@ public class VaccineController {
             @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize
     ) {
         Pageable pageable = PageRequest.of(page, pageSize);
-        Page<Vaccine> filteredVaccinesByAnimalIdAndProtectionStartDate = this.vaccineService.findByAnimalIdAndProtectionStartDateBetween(animalId, startDate, endDate, pageable).get();
-        Page<VaccineResponse> vaccineResponses = filteredVaccinesByAnimalIdAndProtectionStartDate.map(vaccine -> this.modelMapper.forResponse().map(vaccine, VaccineResponse.class));
-        return ResultHelper.cursor(vaccineResponses);
+        return ResultHelper.cursor(this.vaccineService.findByAnimalIdAndProtectionStartDateBetween(animalId, startDate, endDate, pageable));
     }
 
 }

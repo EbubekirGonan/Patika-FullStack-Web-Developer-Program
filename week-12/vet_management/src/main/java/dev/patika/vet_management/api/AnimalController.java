@@ -24,13 +24,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/animals") //endpoint
 public class AnimalController {
     private final IAnimalService animalService;
-    private final ICustomerService customerService;
-    private final IModelMapperService modelMapper;
 
-    public AnimalController(IAnimalService animalService, ICustomerService customerService, IModelMapperService modelMapper) {
+    public AnimalController(IAnimalService animalService) {
         this.animalService = animalService;
-        this.customerService = customerService;
-        this.modelMapper = modelMapper;
     }
 
     //CRUD
@@ -38,34 +34,21 @@ public class AnimalController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultWithData<AnimalResponse> save(@Valid @RequestBody AnimalSaveRequest animalSaveRequest) {
-        Animal animal = this.modelMapper.forRequest().map(animalSaveRequest, Animal.class);
-
-        Customer customer = this.customerService.get(animalSaveRequest.getOwnerId());
-        animal.setOwner(customer);
-
-        this.animalService.save(animal);
-        return ResultHelper.success(this.modelMapper.forResponse().map(animal, AnimalResponse.class));
+        return ResultHelper.success(this.animalService.save(animalSaveRequest));
     }
 
     //for get by id
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResultWithData<AnimalResponse> get(@PathVariable("id") int id) {
-        Animal animal = this.animalService.get(id);
-        return ResultHelper.success(this.modelMapper.forResponse().map(animal, AnimalResponse.class));
+        return ResultHelper.success(this.animalService.get(id));
     }
 
     //for update
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
     public ResultWithData<AnimalResponse> update(@Valid @RequestBody AnimalUpdateRequest animalUpdateRequest) {
-        Animal animal = this.modelMapper.forRequest().map(animalUpdateRequest, Animal.class);
-
-        Customer customer = this.customerService.get(animalUpdateRequest.getOwnerId());
-        animal.setOwner(customer);
-
-        this.animalService.update(animal);
-        return ResultHelper.success(this.modelMapper.forResponse().map(animal, AnimalResponse.class));
+        return ResultHelper.success(this.animalService.update(animalUpdateRequest));
     }
 
     //for delete by id
@@ -76,16 +59,14 @@ public class AnimalController {
         return ResultHelper.ok();
     }
 
-    //pageable repsonse
+    //pageable response
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public ResultWithData<CursorResponse<AnimalResponse>> cursor(
             @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize
     ) {
-        Page<Animal> animalPage = this.animalService.cursor(page, pageSize);
-        Page<AnimalResponse> animalResponses = animalPage.map(animal -> this.modelMapper.forResponse().map(animal, AnimalResponse.class));
-        return ResultHelper.cursor(animalResponses);
+        return ResultHelper.cursor(this.animalService.cursor(page, pageSize));
     }
 
 
@@ -98,9 +79,7 @@ public class AnimalController {
             @RequestParam(required = false, defaultValue = "10") int pageSize
     ) {
         Pageable pageable = PageRequest.of(page, pageSize);
-        Page<Animal> filteredAnimals = this.animalService.findByName(name, pageable);
-        Page<AnimalResponse> animalResponses = filteredAnimals.map(animal -> this.modelMapper.forResponse().map(animal, AnimalResponse.class));
-        return ResultHelper.cursor(animalResponses);
+        return ResultHelper.cursor(this.animalService.findByName(name, pageable));
     }
 
     //for find by owner id
@@ -112,8 +91,6 @@ public class AnimalController {
             @RequestParam(required = false, defaultValue = "10") int pageSize
     ) {
         Pageable pageable = PageRequest.of(page, pageSize);
-        Page<Animal> filteredAnimals = this.animalService.findByOwnerId(ownerId, pageable).get();
-        Page<AnimalResponse> animalResponses = filteredAnimals.map(animal -> this.modelMapper.forResponse().map(animal, AnimalResponse.class));
-        return ResultHelper.cursor(animalResponses);
+        return ResultHelper.cursor(this.animalService.findByOwnerId(ownerId, pageable));
     }
 }

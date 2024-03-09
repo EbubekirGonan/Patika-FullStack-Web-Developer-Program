@@ -19,11 +19,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/doctors") //endpoint
 public class DoctorController {
     private final IDoctorService doctorService;
-    private final IModelMapperService modelMapper;
 
-    public DoctorController(IDoctorService doctorService, IModelMapperService modelMapper) {
+    public DoctorController(IDoctorService doctorService) {
         this.doctorService = doctorService;
-        this.modelMapper = modelMapper;
     }
 
     //CRUD
@@ -32,26 +30,21 @@ public class DoctorController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultWithData<DoctorResponse> save(@Valid @RequestBody DoctorSaveRequest doctorSaveRequest) {
-        Doctor doctor = this.modelMapper.forRequest().map(doctorSaveRequest, Doctor.class);
-        this.doctorService.save(doctor);
-        return ResultHelper.success(this.modelMapper.forResponse().map(doctor, DoctorResponse.class));
+        return ResultHelper.success(this.doctorService.save(doctorSaveRequest));
     }
 
     //for get by id
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResultWithData<DoctorResponse> get(@PathVariable("id") int id){
-        Doctor doctor = this.doctorService.get(id);
-        return ResultHelper.success(this.modelMapper.forResponse().map(doctor, DoctorResponse.class));
+        return ResultHelper.success(this.doctorService.get(id));
     }
 
     //for update
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
     public ResultWithData<DoctorResponse> update(@Valid @RequestBody DoctorUpdateRequest doctorUpdateRequest){
-        Doctor doctor = this.modelMapper.forRequest().map(doctorUpdateRequest, Doctor.class);
-        this.doctorService.update(doctor);
-        return ResultHelper.success(this.modelMapper.forResponse().map(doctor, DoctorResponse.class));
+        return ResultHelper.success(this.doctorService.update(doctorUpdateRequest));
     }
 
     //for delete by id
@@ -69,8 +62,6 @@ public class DoctorController {
             @RequestParam(name = "page", required = false, defaultValue = "0")int page,
             @RequestParam(name = "pageSize", required = false, defaultValue = "10")int pageSize
     ){
-        Page<Doctor> doctorPage = this.doctorService.cursor(page, pageSize);
-        Page<DoctorResponse> doctorResponses = doctorPage.map(doctor -> this.modelMapper.forResponse().map(doctor, DoctorResponse.class));
-        return ResultHelper.cursor(doctorResponses);
+        return ResultHelper.cursor(this.doctorService.cursor(page, pageSize));
     }
 }

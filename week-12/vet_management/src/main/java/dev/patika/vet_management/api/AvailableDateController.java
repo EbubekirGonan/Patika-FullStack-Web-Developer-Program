@@ -14,6 +14,8 @@ import dev.patika.vet_management.entities.AvailableDate;
 import dev.patika.vet_management.entities.Doctor;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +23,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/available-dates") //endpoint
 public class AvailableDateController {
     private final IAvailableDateService availableDateService;
-    private final IDoctorService doctorService;
-    private final IModelMapperService modelMapper;
 
-    public AvailableDateController(IAvailableDateService availableDateService, IDoctorService doctorService, IModelMapperService modelMapper) {
+    public AvailableDateController(IAvailableDateService availableDateService) {
         this.availableDateService = availableDateService;
-        this.doctorService = doctorService;
-        this.modelMapper = modelMapper;
     }
 
     //CRUD
@@ -36,34 +34,21 @@ public class AvailableDateController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultWithData<AvailableDateResponse> save(@Valid @RequestBody AvailableDateSaveRequest availableDateSaveRequest) {
-        AvailableDate availableDate = this.modelMapper.forRequest().map(availableDateSaveRequest, AvailableDate.class);
-
-        Doctor doctor = this.doctorService.get(availableDateSaveRequest.getDoctorId());
-        availableDate.setDoctor(doctor);
-
-        this.availableDateService.save(availableDate);
-        return ResultHelper.success(this.modelMapper.forResponse().map(availableDate, AvailableDateResponse.class));
+        return ResultHelper.success(this.availableDateService.save(availableDateSaveRequest));
     }
 
     //for get by id
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResultWithData<AvailableDateResponse> get(@PathVariable("id") int id) {
-        AvailableDate availableDate = this.availableDateService.get(id);
-        return ResultHelper.success(this.modelMapper.forResponse().map(availableDate, AvailableDateResponse.class));
+        return ResultHelper.success(this.availableDateService.get(id));
     }
 
     //for update
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
     public ResultWithData<AvailableDateResponse> update(@Valid @RequestBody AvailableDateUpdateRequest availableDateUpdateRequest) {
-        AvailableDate availableDate = this.modelMapper.forRequest().map(availableDateUpdateRequest, AvailableDate.class);
-
-        Doctor doctor = this.doctorService.get(availableDateUpdateRequest.getDoctorId());
-        availableDate.setDoctor(doctor);
-
-        this.availableDateService.update(availableDate);
-        return ResultHelper.success(this.modelMapper.forResponse().map(availableDate, AvailableDateResponse.class));
+        return ResultHelper.success(this.availableDateService.update(availableDateUpdateRequest));
     }
 
     //for delete by id
@@ -81,11 +66,6 @@ public class AvailableDateController {
             @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize
     ){
-        Page<AvailableDate> availableDatePage = this.availableDateService.cursor(page, pageSize);
-        Page<AvailableDateResponse> availableDateResponses = availableDatePage.map(
-                availableDate -> this.modelMapper.forResponse().map(availableDate, AvailableDateResponse.class)
-               );
-        return ResultHelper.cursor(availableDateResponses);
+        return ResultHelper.cursor(this.availableDateService.cursor(page, pageSize));
     }
-
 }

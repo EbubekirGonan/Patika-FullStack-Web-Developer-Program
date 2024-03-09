@@ -23,12 +23,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/customers") //endpoint
 public class CustomerController {
     private final ICustomerService customerService;
-    private final IModelMapperService modelMapper;
 
 
-    public CustomerController(ICustomerService customerService, IModelMapperService modelMapper) {
+    public CustomerController(ICustomerService customerService) {
         this.customerService = customerService;
-        this.modelMapper = modelMapper;
     }
 
     //CRUD
@@ -37,26 +35,21 @@ public class CustomerController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultWithData<CustomerResponse> save(@Valid @RequestBody CustomerSaveRequest customerSaveRequest) {
-        Customer customer = this.modelMapper.forRequest().map(customerSaveRequest, Customer.class);
-        this.customerService.save(customer);
-        return ResultHelper.success(this.modelMapper.forResponse().map(customer, CustomerResponse.class));
+       return ResultHelper.success(this.customerService.save(customerSaveRequest));
     }
 
     //for get by id
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResultWithData<CustomerResponse> get(@PathVariable("id") int id) {
-        Customer customer = this.customerService.get(id);
-        return ResultHelper.success(this.modelMapper.forResponse().map(customer, CustomerResponse.class));
+        return ResultHelper.success(this.customerService.get(id));
     }
 
     //for update
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
     public ResultWithData<CustomerResponse> update(@Valid @RequestBody CustomerUpdateRequest customerUpdateRequest) {
-        Customer customer = this.modelMapper.forRequest().map(customerUpdateRequest, Customer.class);
-        this.customerService.update(customer);
-        return ResultHelper.success(this.modelMapper.forResponse().map(customer, CustomerResponse.class));
+        return ResultHelper.success(this.customerService.update(customerUpdateRequest));
     }
 
     //for delete by id
@@ -74,9 +67,7 @@ public class CustomerController {
             @RequestParam(name = "page", required = false, defaultValue = "0") int page,
             @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize
     ) {
-        Page<Customer> customerPage = this.customerService.cursor(page, pageSize);
-        Page<CustomerResponse> customerResponses = customerPage.map(customer -> this.modelMapper.forResponse().map(customer, CustomerResponse.class));
-        return ResultHelper.cursor(customerResponses);
+        return ResultHelper.cursor(this.customerService.cursor(page, pageSize));
     }
 
     //find customer by name
@@ -88,8 +79,6 @@ public class CustomerController {
             @RequestParam(required = false, defaultValue = "10") int pageSize
     ) {
         Pageable pageable = PageRequest.of(page, pageSize);
-        Page<Customer> filteredCustomers = this.customerService.findByName(name, pageable);
-        Page<CustomerResponse> animalResponses = filteredCustomers.map(customer -> this.modelMapper.forResponse().map(customer, CustomerResponse.class));
-        return ResultHelper.cursor(animalResponses);
+        return ResultHelper.cursor(this.customerService.findByName(name, pageable));
     }
 }

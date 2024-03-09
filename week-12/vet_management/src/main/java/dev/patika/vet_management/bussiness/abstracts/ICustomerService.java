@@ -1,16 +1,19 @@
 package dev.patika.vet_management.bussiness.abstracts;
 
+import dev.patika.vet_management.dto.request.customer.CustomerSaveRequest;
+import dev.patika.vet_management.dto.request.customer.CustomerUpdateRequest;
+import dev.patika.vet_management.dto.response.customer.CustomerResponse;
 import dev.patika.vet_management.entities.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ICustomerService {
-    Customer save(Customer customer);
-    Customer update(Customer customer);
-    Customer get(int id);
+    CustomerResponse save(CustomerSaveRequest customerSaveRequest);
+    CustomerResponse update(CustomerUpdateRequest customerUpdateRequest);
+    CustomerResponse get(int id);
     boolean delete(int id);
-    Page<Customer> cursor(int page, int pageSize);
-    Page<Customer> findByName(String name, Pageable pageable);
+    Page<CustomerResponse> cursor(int page, int pageSize);
+    Page<CustomerResponse> findByName(String name, Pageable pageable);
     boolean existsByMail(String mail);
 
 

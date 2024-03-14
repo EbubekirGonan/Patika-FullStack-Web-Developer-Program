@@ -1,0 +1,14 @@
+.center{
+    text-align: center;
+}
+
+li{
+    list-style-position: inside;
+}
+h1{
+    color: rebeccapurple;
+}
+
+p{
+    font-style: italic;
+}

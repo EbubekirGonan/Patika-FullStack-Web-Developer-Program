@@ -1,0 +1,63 @@
+body{
+    background-color: rgb(179, 255, 255);
+    padding: 20px;
+}
+
+nav div h1 {
+    font-family: 'Courier New', Courier, monospace;
+    
+}
+
+.box{
+    height: 600px;
+    width: 1200px;
+    margin: auto;
+
+}
+
+.subheader{
+    display: inline-flexbox;
+    
+}
+
+.header{
+    text-align: center;
+    align-items: center;
+    font-family: ;
+
+}
+
+.section-box{
+    width: 800;
+    padding-left: 40px;
+
+}
+
+.img-box{
+    position: relative;
+    top: 80px;
+    width: 400px;
+}
+
+.description-box{
+    width: 400px;
+    position: relative;
+    left:450px;
+    bottom: 200px;
+
+}
+
+footer{
+    background-color: rgb(118, 172, 172);
+}
+
+footer div{
+    display: inline-block;
+    padding-left: 15px;
+}
+
+.yusei-magic-regular {
+    font-family: "Yusei Magic", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }

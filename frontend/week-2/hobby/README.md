@@ -1,0 +1,1 @@
+![Genel Görünüm](images/hobby.png)

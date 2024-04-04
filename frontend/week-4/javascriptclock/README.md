@@ -1,0 +1,1 @@
+![Sayfa Görünümü](img/karşılama.png)

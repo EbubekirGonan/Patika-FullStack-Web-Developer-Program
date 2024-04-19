@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    height: auto;
+}
+
+.navbar div {
+    padding: 40px;
+}
+
+input {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    width: 75%;
+    padding: 10px;
+    float: left;
+    font-size: 16px;
+}
+
+li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+li.completed {
+    background: #276678;
+    color: #fff;
+    text-decoration: line-through;
+}
+
+.delete-button{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor:pointer;
+    color:red;
+}

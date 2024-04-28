@@ -1,0 +1,63 @@
+#classes {
+    height: 100vh;
+    padding: 60px;
+}
+
+#classes .container {
+   
+}
+
+#classes .classes-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    
+    margin: 2rem;
+
+}
+
+
+#classes .classes-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+#classes .classes-header h2{
+    margin-bottom: 40px;
+}
+
+#classes .classes-buttons {
+    margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#classes .classes-buttons button {
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: var(--background-color-3);
+    border-radius: 8%;
+}
+#classes .classes-buttons button:hover {
+    background-color: var(--btn-color-2);
+}
+
+
+
+#classes .classes-body {
+    display: flex;
+    gap: 80px;
+}
+
+#classes .classes-body div img {
+    width: 360px;
+   
+}

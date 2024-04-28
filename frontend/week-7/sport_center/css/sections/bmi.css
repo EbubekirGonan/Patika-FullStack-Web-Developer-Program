@@ -1,0 +1,33 @@
+#bmi {
+    min-height: 50vh;
+    padding: 40px;
+}
+
+#bmi .container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#bmi .container .bmi-text {
+    width: 480px;
+    padding: 20px;
+}
+
+#bmi .container .bmi-img img {
+    width: 480px;
+}
+
+.bmi-inputs {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.bmi-inputs input {
+    border: 2px solid black;
+    border-radius: 8%;
+}
+
+.bmi-inputs p {
+    margin-top: 10px;
+} 

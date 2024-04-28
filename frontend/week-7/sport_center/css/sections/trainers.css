@@ -1,0 +1,31 @@
+#trainers {
+    min-height: 60vh;
+    padding: 40px;
+    background-color: var(--background-color-2);
+}
+
+#trainers .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+}
+
+#trainers .container .trainers-text {
+    padding: 20px;
+}
+
+#trainers .container .trainers-images {
+    display: flex;
+    gap: 80px;
+    flex-wrap: wrap;
+    /* flex-direction: row;
+    justify-content: space-between; */
+}
+
+#trainers .container .trainers-images img{
+    width: 200px;
+    
+}

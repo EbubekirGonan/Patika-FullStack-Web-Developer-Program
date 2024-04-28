@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+}
+
+html {
+    overflow-x: hidden;
+  }
+
+
+:root {
+    --btn-color-1: #355494;
+    --btn-color-2: #F29D0C;
+    --font-color-1: #355494;
+    --font-color-2: #ffffff;
+    --font-color-3: #000000;
+    --background-color-1: #ffffff;
+    --background-color-2: #F1F8FF;
+    --background-color-3: #0066cd;
+}
+

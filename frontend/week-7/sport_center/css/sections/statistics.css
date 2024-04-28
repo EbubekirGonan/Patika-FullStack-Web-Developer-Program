@@ -1,0 +1,41 @@
+#statistics {
+    background-color: var(--background-color-2);
+    height: 160px;
+}
+
+#statistics .statistics-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+}
+
+#statistics .statistics-content div{
+    width: 160px;
+    height: 100px;
+    margin: 30px 0;
+    background-color: var(--background-color-1);
+    padding: 20px;
+}
+
+#statistics .statistics-content div p {
+    font-weight: 600;
+    font-size: 16px;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#statistics .statistics-content div p:first-child {
+    color: var(--font-color-1);
+}
+
+#statistics .statistics-content div p:last-child {
+    color: var(--font-color-3);
+}

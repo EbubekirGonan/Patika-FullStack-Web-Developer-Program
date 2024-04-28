@@ -1,0 +1,1 @@
+Proje henüz bitmedi. Son revize tarihine kadar yetiştirmeye çalışacağım. Anlayışınız için teşekkürler  :)

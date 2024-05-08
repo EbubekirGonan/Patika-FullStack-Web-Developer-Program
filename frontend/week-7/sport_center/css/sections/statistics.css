@@ -21,7 +21,7 @@
 }
 
 #statistics .statistics-content div p {
-    font-weight: 600;
+    font-weight: 900;
     font-size: 16px;
     display: inline-block;
     padding: 0;
@@ -39,3 +39,27 @@
 #statistics .statistics-content div p:last-child {
     color: var(--font-color-3);
 }
+
+@media (max-width: 575.98px) {
+    #statistics {
+        height: fit-content;
+    }
+
+    #statistics .statistics-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #statistics .statistics-content div {
+        width: 75vh;
+        height: 25vh;
+    }
+
+    #statistics .statistics-content div p {
+        font-size: 24px;
+        font-weight: 900;
+        margin-top: 5px;
+    }
+
+}   
+

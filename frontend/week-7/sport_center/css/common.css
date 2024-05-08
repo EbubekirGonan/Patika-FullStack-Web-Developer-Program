@@ -6,21 +6,47 @@
     border: none;
     outline: none;
     scroll-behavior: smooth;
+    font-family: sans-serif;
+    
 }
 
 html {
     overflow-x: hidden;
+    overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
+    
   }
 
 
 :root {
-    --btn-color-1: #355494;
+    --btn-color-1: rgb(35, 55, 92);
     --btn-color-2: #F29D0C;
-    --font-color-1: #355494;
+    --font-color-1: rgb(35, 55, 92);
     --font-color-2: #ffffff;
     --font-color-3: #000000;
     --background-color-1: #ffffff;
     --background-color-2: #F1F8FF;
-    --background-color-3: #0066cd;
+    --background-color-3: rgb(35, 55, 92);
 }
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+border-radius: 4px;
+background-color: rgba(0, 0, 0, .5);
+-webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+
+.line {
+    width: 80px;
+    height: 8px;
+    border-radius: 20%;
+    margin: auto;
+    margin-bottom: 40px;
+    background-color: var(--btn-color-2);
+}
+
+
 

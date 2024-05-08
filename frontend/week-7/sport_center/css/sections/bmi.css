@@ -1,5 +1,5 @@
 #bmi {
-    min-height: 50vh;
+    height: fit-content;
     padding: 40px;
 }
 
@@ -10,24 +10,75 @@
 
 #bmi .container .bmi-text {
     width: 480px;
-    padding: 20px;
+    padding: 40px;
+}
+
+#bmi .container .bmi-img {
+    text-align: center;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+
+#bmi .container .bmi-img p {
+    font-weight: 600;
+    font-size: 20px;
 }
 
 #bmi .container .bmi-img img {
+    position: relative;
     width: 480px;
 }
 
+#bmi .bmi-img .bmi-clip {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    bottom: 210px;
+    left: 20px;
+    
+    background-color: var(--btn-color-2);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    z-index: 1;
+}
+
 .bmi-inputs {
+    width: 240px;
     display: flex;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column;
+    z-index: 2;
 }
 
 .bmi-inputs input {
+    padding: 5px;
     border: 2px solid black;
-    border-radius: 8%;
+ 
 }
 
 .bmi-inputs p {
     margin-top: 10px;
 } 
+
+@media (max-width: 575.98px) {
+
+    #bmi .container {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #bmi .container .bmi-text  {
+        padding: 0;
+        width: 70vh;
+    } 
+
+    #bmi .container .bmi-img img{
+        width: 70vh;
+    }
+
+    #bmi .bmi-img .bmi-clip {
+        bottom: -40px;
+    }
+}

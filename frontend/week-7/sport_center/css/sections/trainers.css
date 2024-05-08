@@ -2,6 +2,7 @@
     min-height: 60vh;
     padding: 40px;
     background-color: var(--background-color-2);
+    z-index: -3;
 }
 
 #trainers .container {
@@ -10,7 +11,13 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    
+    z-index: -2;
+}
+
+#trainers .container h2 {
+    margin-bottom: 40px;
+    color: var(--font-color-1);
+    font-weight: 600;
 }
 
 #trainers .container .trainers-text {
@@ -21,11 +28,87 @@
     display: flex;
     gap: 80px;
     flex-wrap: wrap;
-    /* flex-direction: row;
-    justify-content: space-between; */
 }
 
 #trainers .container .trainers-images img{
     width: 200px;
-    
+    padding: 0;
 }
+
+
+#trainers .container .trainers-images div {
+    position: relative;
+    padding: 0;
+    z-index: 0;
+}
+
+#trainers .container .trainers-images .horizontal-frame {
+    position: absolute;
+    background-color: var(--background-color-3);
+    width: 110%;
+    height: 30%;
+    top: 0;
+    left: -5%;
+    transform: translate(0, 50%);
+    border-radius: 5%;
+    z-index: -1;
+    transition: width 0.3s, height 0.3s;
+    /* transform: translate(-50%, -50%); */
+}
+
+#trainers .container .trainers-images .vertical-frame {
+    position: absolute;
+    background-color: var(--background-color-3);
+    width: 30%;
+    height: 110%;
+    top: -5%;
+    left: 0;
+    transform: translate(50%, 0);
+    border-radius: 5%;
+    z-index: -1;
+    transition: width 0.3s, height 0.3s;
+}
+
+#trainers .container .trainers-images img:hover ~ .horizontal-frame {
+    height: 50%;
+}
+
+#trainers .container .trainers-images img:hover ~ .vertical-frame {
+    width: 50%;
+}
+
+#trainers .container .trainers-images .state {
+    line-height: 5px;
+    padding: 16px;
+    font-size: 12px;
+    color: var(--font-color-2);
+    position: absolute;
+    background-color: var(--background-color-3);
+    width: 60%;
+    height: 30%;
+    bottom: 5%;
+    left: 20%;
+    clip-path: polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%);
+    transition: all 5ms ease-in-out;
+    z-index: -1;
+}
+
+#trainers .container .trainers-images img:hover ~ .state {
+    z-index: 3;
+}
+
+@media (max-width: 575.98px) {
+    #trainers .container .trainers-images img{
+        width: fit-content;
+    }
+
+    #trainers .container .trainers-images .state h6 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    #trainers .container .trainers-images .state p {
+        font-size: 14px;
+    }
+}
+

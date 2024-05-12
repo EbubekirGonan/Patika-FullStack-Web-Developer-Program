@@ -1,42 +1,174 @@
 #root {
-  max-width: 1280px;
+  max-width: fit-content;
   margin: 0 auto;
-  padding: 2rem;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  padding: 0;
+  font-family: Roboto, sans-serif;
+}
+
+.page {
+  background: #f1f2f6;
+  font-family: Roboto, sans-serif;
+}
+
+#header {
+  width: 1600px;
+  background-color: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+#header .header-inner {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#header .header-inner h2 {
+  margin: 20px 0;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  color: #333;
+}
+
+.title {
+  /* max-width: 1000px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  background-color: white;
+  margin-bottom: 10px;
+  padding: 30px 20px; */
+  font-size: 32px;
+  background: #fff;
+  padding: 30px 20px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.3em;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.title img {
+  display: block;
+  width: 125px;
+  height: 125px;
+  user-select: none;
+  border-radius: 125px;
+  margin: 10px auto 25px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#money-bar {
+  color: white;
+  background: linear-gradient(180deg,#2ecc71,#1abc9c);
+  padding: 20px;
+  margin: 10px auto;
+  font-family: Roboto,sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  top: 0;
+  position: sticky;
+  z-index: 9;
+  max-width: 1000px;
+  
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+#items {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  grid-gap: 40px 40px;
 }
 
-.card {
-  padding: 2em;
+
+#items .item {
+  max-width: 100%;
+  background-color: #fff;
+  text-align: center;
+  font-size: 18px;
+  padding: 20px 15px;
+  width: 100%;
 }
 
-.read-the-docs {
-  color: #888;
+#items .item .item-img {
+  display: block;
+  margin: 15px auto;
+  height: 120px;
+  object-fit: contain;
+  user-select: none;
+}
+
+#items .item .item-name {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+#items .item .item-cost {
+  font-size: 20px;
+  color: #24c486;
+  font-weight: 500;
+}
+
+#items .item .item-controls {
+  font-size: 20px;
+  font-weight: 700;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px 10px;
+  margin-top: 25px;
+}
+
+#items .item .item-controls .item-sell {
+  background: #f1f2f6;
+  border: none;
+  color: #333;
+  cursor: auto;
+  touch-action: manipulation;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 3px;
+}
+
+#items .item .item-controls .item-sell.enabled  {
+  background: linear-gradient(180deg,#f53b82,#f53b57);
+  color: #fff;
+  cursor: pointer;
+}
+
+#items .item .item-controls .item-input {
+  font-size: 16px;
+  text-align: center;
+  padding: 9px  12px;
+  border-radius: 3px;
+  border: 1px solid #b2bec3;
+  color: #333;
+  appearance: none;
+  max-width: 80px;
+}
+
+#items .item .item-controls .item-buy {
+  background: linear-gradient(180deg,#2ecc71,#1abc9c);
+  cursor: pointer;
+  padding: 10px 12px;
+  border-radius: 3px;
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  user-select: none;
+  touch-action: manipulation;
+  font-size: 16px;
 }

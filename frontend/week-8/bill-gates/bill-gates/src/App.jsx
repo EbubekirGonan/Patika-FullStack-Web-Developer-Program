@@ -6,6 +6,7 @@ import Title from './components/Title'
 import MoneyBar from './components/MoneyBar';
 import ProductContainer from './components/ProductContainer';
 
+
 function App() {
   const [products, setProducts] = useState([])
   const [totalMoney, setTotalMoney] = useState(100000000000)
@@ -18,7 +19,6 @@ function App() {
       setProducts(response.data.products);
       console.log(products);
     })
-   
   }, [])
 
 
@@ -31,11 +31,15 @@ function App() {
 
         <div className="container">
 
-          <Title/>
-          <MoneyBar totalMoney={totalMoney} setTotalMoney={setTotalMoney}/>
+          <div>
 
-          <ProductContainer products={products} totalMoney={totalMoney} setTotalMoney={setTotalMoney} />
-
+            <Title/>
+            <div id='money-bar'>
+              < MoneyBar totalMoney={totalMoney} />
+            </div>
+            <ProductContainer products={products} totalMoney={totalMoney} setTotalMoney={setTotalMoney} />
+          </div>
+          
 
         </div>
       </div>

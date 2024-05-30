@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-function Header (){
+function Header() {
     return (
         <>
         <header id='header'>

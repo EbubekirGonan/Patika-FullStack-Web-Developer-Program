@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import ProductCard from "./ProductCard";
 
 function ProductContainer ({products, totalMoney, setTotalMoney}) {
@@ -12,7 +12,7 @@ function ProductContainer ({products, totalMoney, setTotalMoney}) {
             {products.map((product) => (
               <ProductCard 
               key={product.id} 
-              product={product} 
+              product={product}
               totalMoney = {totalMoney}
               setTotalMoney={setTotalMoney}
               />

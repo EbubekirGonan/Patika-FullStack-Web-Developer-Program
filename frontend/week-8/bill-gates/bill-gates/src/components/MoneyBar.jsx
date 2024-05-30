@@ -1,17 +1,14 @@
 import { useState } from "react";
 
-function MoneyBar ( {totalMoney, setTotalMoney}) {
+function MoneyBar ( {totalMoney, }) {
     
     const formatMoney = (amount) => {
         return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       }
 
-     
-
-
     return(
         <>
-        <div id='money-bar'>
+        <div>
             ${formatMoney(totalMoney)}
             
         </div>

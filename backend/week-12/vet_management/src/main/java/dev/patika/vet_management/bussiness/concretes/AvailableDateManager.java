@@ -48,14 +48,17 @@ public class AvailableDateManager implements IAvailableDateService {
 
     @Override
     public AvailableDateResponse update(AvailableDateUpdateRequest availableDateUpdateRequest) {
-        AvailableDate availableDate = this.modelMapper.forRequest().map(availableDateUpdateRequest, AvailableDate.class);
+
 
         if (this.existsByDoctorIdAndAvailableDate(availableDateUpdateRequest.getDoctorId(), availableDateUpdateRequest.getAvailableDate())) {
             throw new RuntimeException("Belirtilen doktorun takvimine belirtilen gün daha önce eklenmiştir. Lütfen başka bir gün seçiniz.");
         } else {
+            AvailableDate availableDate = this.modelMapper.forRequest().map(availableDateUpdateRequest, AvailableDate.class);
+
             Doctor doctor = this.doctorRepo.findById(availableDateUpdateRequest.getDoctorId()).get();
             availableDate.setDoctor(doctor);
 
+            System.out.println(availableDate.getId());
             return this.modelMapper.forResponse().map(this.availableDateRepo.save(availableDate), AvailableDateResponse.class);
         }
     }

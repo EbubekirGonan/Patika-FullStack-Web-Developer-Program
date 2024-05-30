@@ -28,7 +28,7 @@ public class Vaccine extends BaseEntity {
     @Column(name = "protection_finish_date")
     private LocalDate protectionFinishDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "vaccine_animal_id", referencedColumnName = "id")
     @JsonIgnore
     private Animal animal;

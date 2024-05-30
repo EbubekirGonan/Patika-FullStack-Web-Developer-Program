@@ -39,7 +39,10 @@ public class VaccineManager implements IVaccineService {
 
         Optional<Vaccine> animalLatestVaccine = this.findByNameAndCodeAndAnimalId(vaccineSaveRequest.getName(), vaccineSaveRequest.getCode(), vaccineSaveRequest.getAnimalId());
 
-        if (animalLatestVaccine.isPresent() && vaccine.getProtectionStartDate().isBefore(animalLatestVaccine.get().getProtectionFinishDate())) {
+        if (animalLatestVaccine.isPresent() &&
+                vaccine.getProtectionStartDate().isBefore(animalLatestVaccine.get().getProtectionFinishDate()) &&
+                vaccine.getProtectionStartDate().isAfter(animalLatestVaccine.get().getProtectionStartDate())
+            ) {
             throw new InvalidVaccineException("Belirtilen aşının koruma zamanı sürmektedir. Koruma süresi bitmeden aynı aşı yapılamaz.");
         } else {
             Animal animal = this.animalRepo.findById(vaccineSaveRequest.getAnimalId()).get();

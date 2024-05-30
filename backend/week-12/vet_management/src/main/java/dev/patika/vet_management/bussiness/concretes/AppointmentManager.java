@@ -66,15 +66,22 @@ public class AppointmentManager implements IAppointmentService {
 
     @Override
     public AppointmentResponse update(AppointmentUpdateRequest appointmentUpdateRequest) {
-        Appointment appointment = this.modelMapper.forRequest().map(appointmentUpdateRequest, Appointment.class);
+        if(isDoctorAvailableOnDay(appointmentUpdateRequest.getDoctorId(), appointmentUpdateRequest.getAppointmentDateTime())){
+            if(!existsByDoctorIdAndAppointmentDateTimeBetween(appointmentUpdateRequest.getDoctorId(), appointmentUpdateRequest.getAppointmentDateTime(), appointmentUpdateRequest.getAppointmentDateTime().plusHours(1))){
+                Appointment appointment = this.modelMapper.forRequest().map(appointmentUpdateRequest, Appointment.class);
 
-        Doctor doctor = this.doctorRepo.findById(appointmentUpdateRequest.getDoctorId()).get();
-        appointment.setDoctor(doctor);
+                Doctor doctor = this.doctorRepo.findById(appointmentUpdateRequest.getDoctorId()).get();
+                appointment.setDoctor(doctor);
 
-        Animal animal = this.animalRepo.findById(appointmentUpdateRequest.getAnimalId()).get();
-        appointment.setAnimal(animal);
-
-        return this.modelMapper.forResponse().map(this.appointmentRepo.save(appointment), AppointmentResponse.class);
+                Animal animal = this.animalRepo.findById(appointmentUpdateRequest.getAnimalId()).get();
+                appointment.setAnimal(animal);
+                return this.modelMapper.forResponse().map(this.appointmentRepo.save(appointment), AppointmentResponse.class);
+            }else {
+                throw new NotFoundException("Girilen zaman aralığında doktorun başka bir randevusu vardır.");
+            }
+        }else {
+            throw new NotFoundException("Belirtilen günde belirtilen doktorun uygunluğu bulunmamaktadır.");
+        }
     }
 
 
